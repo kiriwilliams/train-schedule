@@ -4,17 +4,13 @@ $(document).ready(function(){
   function Train(name,destination,firstTrain,frequency){
     this.name = name,
     this.destination = destination,
-    this.firstTrain = firstTrain,
+    this.firstTrain = moment(firstTrain,"HH:mm"),
     this.frequency = frequency,
-    this.nextTrain = function(time){
-      var elapsedTime = time.diff(this.firstTrain,"minutes");
-      var nextTrainIn = elapsedTime % this.frequency;
-      return nextTrainIn;
+    this.elapsedTime = moment().diff(this.firstTrain,"minutes"),
+    this.minAway = this.frequency - (this.elapsedTime % this.frequency),
+    this.nextTrain = this.firstTrain.add(this.elapsedTime,"m").format("HH:mm");
+      
     }
-    // this.addToSchedule() = function(){
-    //   var row = $("<tr>");
-  // }
-}
 
   var trains = [];
 
@@ -41,7 +37,8 @@ database.ref().on("child_added", function(snapshot){
   //create new train object with updated data
   var train = new Train(name,destination,firstTrain,frequency);
   trains.push(train);
-})
+  publishTrains();
+});
 
 $("#submit").on("click", function (e) {
   //grab user input
@@ -60,5 +57,48 @@ $("#submit").on("click", function (e) {
 
 });
 
+function publishTrains(){
+  $("#trains").empty();
+  trains.forEach(function(train,i){
+    var train = trains[i];
+    var row = $("<tr>");
+    row
+      .append(addData(train.name))
+      .append(addData(train.destination))
+      .append(addData(train.frequency))
+      .append(addData(train.nextTrain))
+      .append(addData(train.minAway));
 
+
+    function addData(value){
+      var td = $("<td>");
+      td.text(value);
+      return td;
+    }
+    $("#trains").append(row);
+
+  });
+console.log("length: "+trains.length);
+  // for (var i = 0; i < trains.length; i++){
+  //   console.log(i);
+
+  //   train = trains[i];
+  //   var row = $("<tr>");
+  //   row
+  //     .append(addData(train.name))
+  //     .append(addData(train.destination))
+  //     .append(addData(train.frequency))
+  //     .append(addData(train.nextTrain))
+  //     .append(addData(train.minAway));
+
+
+  //   function addData(value){
+  //     var td = $("<td>");
+  //     td.text(value);
+  //     return td;
+  //   }
+
+  //   $("#trains").append(row);
+  // };
+}
 });
