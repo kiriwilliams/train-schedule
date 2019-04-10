@@ -8,7 +8,7 @@ $(document).ready(function(){
     this.frequency = frequency,
     this.elapsedTime = moment().diff(this.firstTrain,"minutes"),
     this.minAway = this.frequency - (this.elapsedTime % this.frequency),
-    this.nextTrain = this.firstTrain.add(this.elapsedTime,"m").format("HH:mm");
+    this.nextTrain = this.firstTrain.add(this.elapsedTime+this.minAway,"m").format("HH:mm");
       
     }
 
@@ -78,27 +78,5 @@ function publishTrains(){
     $("#trains").append(row);
 
   });
-console.log("length: "+trains.length);
-  // for (var i = 0; i < trains.length; i++){
-  //   console.log(i);
-
-  //   train = trains[i];
-  //   var row = $("<tr>");
-  //   row
-  //     .append(addData(train.name))
-  //     .append(addData(train.destination))
-  //     .append(addData(train.frequency))
-  //     .append(addData(train.nextTrain))
-  //     .append(addData(train.minAway));
-
-
-  //   function addData(value){
-  //     var td = $("<td>");
-  //     td.text(value);
-  //     return td;
-  //   }
-
-  //   $("#trains").append(row);
-  // };
 }
 });
