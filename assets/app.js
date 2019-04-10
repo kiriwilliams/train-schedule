@@ -79,4 +79,18 @@ function publishTrains(){
 
   });
 }
+
+$("#login").on("click", function(){
+  var key = $("#admin-key").val().trim();
+  console.log(key);
+  if (key == "pastapasta"){
+    window.location.replace("./admin.html");
+  }
+  else{
+    $("#warning").text("Wrong key");
+  }
+
+
+});
+
 });
