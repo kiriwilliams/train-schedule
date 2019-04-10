@@ -87,9 +87,8 @@ $("#login").on("click", function(){
     window.location.replace("./admin.html");
   }
   else{
-    $("#warning").text("Wrong key");
+    $("#warning").text("incorrect password");
   }
-
 
 });
 
