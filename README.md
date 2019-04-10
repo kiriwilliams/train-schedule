@@ -1,2 +1,4 @@
-# RPS-multiplayer
-An online rock paper scissors game
+# Train Scheduler
+Displays train schedules stored in firebase.
+
+There is an option to login as an administrator and add new trains using a form. New entries are pushed to the database and the webpage is updated to include them.
